@@ -1,0 +1,11 @@
+{
+  "name": "crater",
+  "version": "1.0.0",
+  "description": "Game Framework",
+  "main": "index.js",
+  "author": "Dylan Paulus",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.8.3"
+  }
+}
