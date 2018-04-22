@@ -6,6 +6,11 @@ export default class KeyboardHandler {
     window.addEventListener("keyup", this.reset);
   }
 
+  public dispose() {
+    window.removeEventListener("keypress", this.handleKeyDown);
+    window.removeEventListener("keyup", this.reset);
+  }
+
   public isKeyDown = (key: Keyboard): boolean => {
     if (this.keysDown.indexOf(key) >= 0) {
       return true;

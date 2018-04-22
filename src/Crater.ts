@@ -10,8 +10,13 @@ export default class Crater {
       return;
     }
 
+    this._canvas = canvas;
     this._context = new Context(canvas.getContext("2d"));
     this._keyHandler = new KeyboardHandler();
+  }
+
+  public dispose = () => {
+    this._keyHandler.dispose();
   }
 
   public run = (
@@ -21,7 +26,7 @@ export default class Crater {
       deltaTime: number
     ) => void
   ) => {
-    this.animationId = requestAnimationFrame(() =>
+    requestAnimationFrame(() =>
       this.runAllEvents(() => action(this._context, this._keyHandler, 0))
     );
   };
@@ -38,7 +43,7 @@ export default class Crater {
     const now = Date.now();
     const delta = now - this.previousTime;
 
-    this._context.context.clearRect(0, 0, 99999, 99999);
+    this._context.context.clearRect(0, 0, this._canvas.width, this._canvas.height);
 
     if (action) {
       action(this._context, this._keyHandler, delta);
@@ -49,10 +54,9 @@ export default class Crater {
     }
   };
 
-  private renderQueue = null;
   private readonly _context: Context;
   private readonly _keyHandler: KeyboardHandler;
-  private animationId: number;
+  private readonly _canvas: HTMLCanvasElement;
 
   private previousTime: number = Date.now();
   private interval: number = 1000 / 30;
