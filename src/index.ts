@@ -12,21 +12,38 @@ window.onload = () => {
         width: 20,
         fillColor: "pink"
     });
+    const ct = new Crater(canvas);
 
-    new Crater(canvas).run((ctx, events) => {
+    let i = 500;
+    while(i--) {
+        const r = new Rectangle({
+            x: i,
+            y: i % 50,
+            height: 4,
+            width: 4,
+            fillColor: "blue"
+        }); 
+
+        ct.add(r);
+    }
+
+    ct.add(rect);
+
+    ct.runEventLoop((events) => {
+        const x = rect.get<number>("x");
+        const y = rect.get<number>("y");
+
         if (events.isKeyDown(Keyboard.d)) {
-            rect.x += 1;
+            rect.set("x", x + 1);
         }
         if (events.isKeyDown(Keyboard.a)) {
-            rect.x -= 1;
+            rect.set("x", x - 1);
         }
         if (events.isKeyDown(Keyboard.w)) {
-            rect.y -= 1;
+            rect.set("y", y - 1);
         }
         if (events.isKeyDown(Keyboard.s)) {
-            rect.y += 1;
+            rect.set("y", y + 1);
         }
-
-        ctx.add(rect);
     });
 }
